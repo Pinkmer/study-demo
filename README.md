@@ -1,68 +1,87 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. state 数据
+2. JSX 模板
+3. 数据 + 模板 结合，生成真实的DOM，来显示
+4. state 发生变化
+5. 数据 + 模板 结合，生成真实的DOM，替换原始的
 
-## Available Scripts
+缺陷：
+第二次生成完整的DOM 去替换第一次生成完整的DOM 十分消耗性能
 
-In the project directory, you can run:
+改变（提升性能）：
+1. state 数据
+2. JSX 模板
+3. 数据 + 模板 结合，生成真实的DOM，来显示
+4. state 发生变化
+5. 数据 + 模板 结合，生成真实的DOM，并不直接替换
+6. 新的DOM 和原始的DOM 做比对，找差异
+7. 找出 input框发生了变化
+8. 只用新的DOM中的input元素，替换老的DOM中的input元素
 
-### `npm start`
+缺陷：
+性能的提升并不明显
+1. state 数据
+2. JSX 模板
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+3. 数据 + 模板 结合，生成虚拟DOM（虚拟DOM是一个JS对象，用来描述真实的DOM）
+  ['div': {id:'abc'},['span',{},'hello world']]
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+4. 用虚拟DOM的结构，生成真实的DOM，来显示
 
-### `npm test`
+5. state 发生变化
+6. 数据 + 模板 结合，生成新的虚拟DOM（极大提升性能）
+  ['div': {id:'abc'},['span',{},'bye bye']]
+7. 比较 原始虚拟DOM和新的虚拟DOM的区别，找出区别
+8. 直接操作DOM，改变span中的内容
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+注：JSX先转化为虚拟DOM在转为真实DOM
+    JSX -> JS对象 -> 真实DOM
 
-### `npm run build`
+优点：
+1. 新能提升
+2. 它使得跨端应用得以实现，React Native
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+##Diff算法
+1. 把多次setState结合成一次，减少虚拟DOM比对次数；
+2. 同层比对；
+3. key值保持稳定
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+##生命周期函数
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#Initialization初始化
+1. setup props and state
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+#Mounting
+1. 在组件即将被挂载到页面之前执行
+    componentWillMount()
 
-## Learn More
+    render
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. 组件被挂载到页面之后执行，只执行一次，ajax请求的地方
+    componentDidMount()
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#Updating
+1. 当一个组件从父组件接收了参数，只要父组件的render函数被执行了，子组件的这个生命周期函数就会被执行，但是如果这个组件第一次存在于父组件中不会被执行
+    componentWillReceiveProps()
 
-### Code Splitting
+2. 组件被更新之前 自动执行
+    shouldComponentUpate() {return true}
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+3. 组件被更新之前，它会自动执行，但是他在shouldComponentUpate之后被执行，如果shouldComponentUpate返回ture继续执行，如果返回false则不执行
+    componentWillUpdate()
 
-### Analyzing the Bundle Size
+    render
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+4. 执行
+    componentDidUpdate()
 
-### Making a Progressive Web App
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+#Unmounting
+1. 这个子组件将要从父组件中移除的时候
+    componentWillUnmount()
 
-### Advanced Configuration
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+#redux

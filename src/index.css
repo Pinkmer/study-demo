@@ -11,3 +11,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* css3中的动画 */
+.show {
+  animation: show-item 2s ease-in forwards
+}
+.hide {
+  animation: hide-item 2s ease-in forwards
+}
+
+@keyframes hide-item {
+  from {
+    opacity: 1;
+    color: blueviolet;
+  }
+  to {
+    opacity: 0;
+    color: #fff;
+  }
+}
+@keyframes show-item {
+  from {
+    opacity: 0;
+    color: #fff;
+  }
+  to {
+    opacity: 1;
+    color: blueviolet;
+  }
+}
+
+.item {
+  cursor: pointer;
+}
