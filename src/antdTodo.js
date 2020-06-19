@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import 'antd/dist/antd.css'
 import store from './store'
 import TodoUI from './TodoUI'
-import {getInputChangeAction, getAddTodoItemAction, getDeleteItemAction} from './store/actionCreation'
+import {getInputChangeAction, getAddTodoItemAction, getDeleteItemAction, getTodoList} from './store/actionCreation'
 
 class Todoantd extends Component {
     constructor(props) {
@@ -13,6 +13,24 @@ class Todoantd extends Component {
         this.handleButtonClick = this.handleButtonClick.bind(this)
         this.handleItemkDelete = this.handleItemkDelete.bind(this)
         store.subscribe(this.handleStoreChange)
+    }
+    // redux中使用axios
+    // componentDidMount() {
+    //     axios.get('/list').then((res) => {
+    //         const data = res.data
+    //         const action = initListAction(data)
+    //         store.dispatch(action)
+    //     })
+    // }
+    // 使用Redux-thunk中间件实现axios
+    componentDidMount() {
+        // axios.get('/list').then((res) => {
+        //     const data = res.data
+        //     const action = initListAction(data)
+        //     store.dispatch(action)
+        // })
+        const action = getTodoList()
+        store.dispatch(action)
     }
     render () {
         return (
