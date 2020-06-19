@@ -3,6 +3,7 @@ import 'antd/dist/antd.css'
 import store from './store'
 import TodoUI from './TodoUI'
 import {getInputChangeAction, getAddTodoItemAction, getDeleteItemAction, getTodoList} from './store/actionCreation'
+import thunk from 'redux-thunk'
 
 class Todoantd extends Component {
     constructor(props) {
@@ -29,7 +30,10 @@ class Todoantd extends Component {
         //     const action = initListAction(data)
         //     store.dispatch(action)
         // })
+        // thunk
         const action = getTodoList()
+        // sagas
+        // const action = getItemList()
         store.dispatch(action)
     }
     render () {
@@ -55,7 +59,6 @@ class Todoantd extends Component {
         store.dispatch(action)
     }
     handleItemkDelete(index) {
-        console.log(index)
         const action = getDeleteItemAction(index)
         store.dispatch(action)
     }

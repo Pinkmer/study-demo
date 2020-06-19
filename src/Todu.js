@@ -61,7 +61,6 @@ class Todo extends Component {
             inputValue: value
         }), () => {
             // setState是个异步函数 支持传递第二个值 可在成功回调后执行
-            console.log('11')
         })
     }
     handleBtnClick (){

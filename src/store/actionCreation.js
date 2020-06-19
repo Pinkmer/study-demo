@@ -1,5 +1,5 @@
 // 统一创建action
-import { CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM, INIT_LIST_ACTION } from './actionTypes'
+import { CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM, INIT_LIST_ACTION, GET_INIT_LIST } from './actionTypes'
 import axios from 'axios'
 
 export const getInputChangeAction = (value) => ({
@@ -31,3 +31,7 @@ export const getTodoList = () => {
         })
     }
 }
+// 使用saga
+// export const getItemList = () => ({
+//     type: GET_INIT_LIST
+// })
