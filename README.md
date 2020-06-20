@@ -95,3 +95,19 @@
 
 #saga
 比thunk功能丰富，丰富的API可以使用
+
+#react-redux
+1. Provider组件：连接的store，可以获取store的内容
+    <Provider store={store}></Provider>
+2. connect方法：让todo和store做链接
+...
+    // mapStateToProps为连接规则，把state里面的数据映射给组件，变成组件的props
+    const mapStateToProps = (state) => {
+        return {}
+    }
+    // action操作放在这里，
+    const mapDispatchToProps = (dispatch) => {
+        return {}
+    }
+    export default connect(mapStateToProps,mapDispatchToProps)(Todo)
+...
