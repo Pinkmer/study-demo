@@ -111,3 +111,10 @@
     }
     export default connect(mapStateToProps,mapDispatchToProps)(Todo)
 ...
+
+
+React特点
+    Declarative(声明式)
+    Component-Based(组件化编程)
+    高效DOM Diff算法，最小化页面重构
+    单向数据流
